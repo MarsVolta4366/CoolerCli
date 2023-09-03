@@ -10,9 +10,9 @@ namespace coolercli {
 		~ParseArgs() = default;
 
 		void addArgs(int argc, char* argv[]);
-		bool argExists(std::string arg);
+		bool argExists(const std::string& arg);
 
-		void tempPrintArgs(); // Remove
+		void tempPrintArgs(); // Remove, just here for debugging.
 	private:
 		std::map<std::string, std::string> m_Args;
 	};

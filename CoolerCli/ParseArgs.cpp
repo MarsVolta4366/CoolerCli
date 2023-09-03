@@ -3,8 +3,6 @@
 #include <iostream>
 #include <regex>
 
-// To start, try to store count of every arg and be able to access count through API.
-
 using namespace coolercli;
 
 const std::regex arg_regex("(\-[a-z])");
@@ -29,12 +27,12 @@ void ParseArgs::addArgs(int argc, char* argv[])
 	}
 }
 
-bool ParseArgs::argExists(std::string arg)
+bool ParseArgs::argExists(const std::string& arg)
 {
 	return !m_Args[arg].empty();
 }
 
-void ParseArgs::tempPrintArgs()
+void ParseArgs::tempPrintArgs() // Remove, just here for debugging.
 {
 	for (auto const& x : m_Args)
 	{
