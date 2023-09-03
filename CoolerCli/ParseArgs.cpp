@@ -9,6 +9,10 @@ const std::regex arg_regex("(\-[a-z])");
 
 void ParseArgs::addArgs(int argc, char* argv[])
 {
+	// Skip first arg which is run command.
+	argc--;
+	argv++;
+
 	for (int i = 0; i < argc; i++)
 	{
 		std::string s = argv[i];
@@ -27,14 +31,18 @@ void ParseArgs::addArgs(int argc, char* argv[])
 			}
 			else
 			{
-				// If next arg doesn't contain "-", use arg as value in m_Args map.
+				// If next arg doesn't contain "-", use next arg as value in m_Args map.
 				std::string sV = argv[i + 1];
 				if (sV.find("-") == -1)
 				{
 					m_Args[match_str] = sV;
+					// Skip next arg because it was used already for the value above.
+					argc--;
+					argv++;
 				}
 				else
 				{
+					// If no value is provided for arg key, default value to empty string.
 					m_Args[match_str] = "";
 				}
 			}
