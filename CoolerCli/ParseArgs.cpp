@@ -29,6 +29,11 @@ void ParseArgs::addArgs(int argc, char* argv[])
 	}
 }
 
+bool ParseArgs::argExists(std::string arg)
+{
+	return !m_Args[arg].empty();
+}
+
 void ParseArgs::tempPrintArgs()
 {
 	for (auto const& x : m_Args)
