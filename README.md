@@ -3,7 +3,7 @@
 
 ### How to use Cooler CLI as a reference in another project:
 1. Clone this repo to your local machine.
-2. Open Visual Studio Properties and go to Linker -> Input and under "Additional Dependencies" paste the path to the static .lib file with file name.
+2. Open Visual Studio Properties and go to Linker -> Input and under "Additional Dependencies" add the path to the static .lib file with file name.
 3. In Visual Studio Properties, go to VC++ Dirctories and under "Include Directories" add the path to ParseArgs.h not including the file name.
 
 ### How to use Cooler CLI:
