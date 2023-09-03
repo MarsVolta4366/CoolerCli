@@ -20,6 +20,12 @@ void ParseArgs::addArgs(int argc, char* argv[])
 		auto words_begin = std::sregex_iterator(s.begin(), s.end(), arg_regex);
 		auto words_end = std::sregex_iterator();
 
+		if (words_begin == words_end)
+		{
+			throw std::invalid_argument("Arg " + s + " needs a preceeding key, i.e. (\-[a-z])");
+			exit(EXIT_FAILURE);
+		}
+
 		for (std::sregex_iterator j = words_begin; j != words_end; j++)
 		{
 			std::smatch match = *j;
