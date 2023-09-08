@@ -2,6 +2,7 @@
 #include "ParseArgs.h"
 #include <iostream>
 #include <regex>
+#include<sstream>
 
 using namespace coolercli;
 
@@ -54,6 +55,26 @@ void ParseArgs::addArgs(int argc, char* argv[])
 			}
 		}
 	}
+}
+
+void ParseArgs::addArgs(std::string str)
+{
+	std::stringstream ss(str);
+	std::string item;
+	std::vector<std::string> args;
+	while (std::getline(ss, item, ' '))
+	{
+		if (item.length() > 0) {
+			args.push_back(item);
+		}
+	}
+
+	char* argv[200];
+	for (int i = 0; i < args.size(); i++)
+	{
+		argv[i] = args[i].data();
+	}
+	addArgs(args.size(), argv);
 }
 
 bool ParseArgs::argKeyExists(const std::string& arg)
