@@ -57,27 +57,7 @@ void ParseArgs::addArgs(int argc, char* argv[])
 	}
 }
 
-//void ParseArgs::addArgs(std::string str)
-//{
-//	std::stringstream ss(str);
-//	std::string item;
-//	std::vector<std::string> args;
-//	while (std::getline(ss, item, ' '))
-//	{
-//		if (item.length() > 0) {
-//			args.push_back(item);
-//		}
-//	}
-//
-//	char* argv[200];
-//	for (int i = 0; i < args.size(); i++)
-//	{
-//		argv[i] = args[i].data();
-//	}
-//	addArgs(args.size(), argv);
-//}
-
-void ParseArgs::addArgs(std::string command)
+ParseArgs::ParseArgsResult ParseArgs::addArgs(std::string command)
 {
 	std::stringstream ss(command);
 	std::string arg;
@@ -108,8 +88,18 @@ void ParseArgs::addArgs(std::string command)
 		}
 		else
 		{
-			exit(-1); // TODO: Return failure instead of exiting.
+			return ParseArgsResult::Unexpected_Argument;
 		}
+	}
+	return ParseArgsResult::Ok;
+}
+
+const std::string ParseArgs::ParseArgsResultToString(ParseArgsResult parseArgsResult)
+{
+	switch (parseArgsResult)
+	{
+	case ParseArgsResult::Ok: return "Ok";
+	case ParseArgsResult::Unexpected_Argument: return "Unexpected Argument";
 	}
 }
 
