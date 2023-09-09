@@ -57,24 +57,60 @@ void ParseArgs::addArgs(int argc, char* argv[])
 	}
 }
 
-void ParseArgs::addArgs(std::string str)
+//void ParseArgs::addArgs(std::string str)
+//{
+//	std::stringstream ss(str);
+//	std::string item;
+//	std::vector<std::string> args;
+//	while (std::getline(ss, item, ' '))
+//	{
+//		if (item.length() > 0) {
+//			args.push_back(item);
+//		}
+//	}
+//
+//	char* argv[200];
+//	for (int i = 0; i < args.size(); i++)
+//	{
+//		argv[i] = args[i].data();
+//	}
+//	addArgs(args.size(), argv);
+//}
+
+void ParseArgs::addArgs(std::string command)
 {
-	std::stringstream ss(str);
-	std::string item;
+	std::stringstream ss(command);
+	std::string arg;
 	std::vector<std::string> args;
-	while (std::getline(ss, item, ' '))
+
+	while (std::getline(ss, arg, ' '))
 	{
-		if (item.length() > 0) {
-			args.push_back(item);
+		if (arg.length() > 0) {
+			args.push_back(arg);
 		}
 	}
 
-	char* argv[200];
 	for (int i = 0; i < args.size(); i++)
 	{
-		argv[i] = args[i].data();
+		m_Args[args[i]] = "";
+
+		if (args[i].at(0) == '-') // If arg is a valid command (command must start with a hyphen).
+		{
+			if (i + 1 != args.size() && args[i + 1].at(0) != '-') // If there's a next arg and it's a value (values can't start with a hyphen).
+			{
+				m_Args[args[i]] = args[i + 1];
+				i++; // Skip next arg because it was a value.
+			}
+			else
+			{
+				m_Args[args[i]] = ""; // Default arg value to empty string.
+			}
+		}
+		else
+		{
+			exit(-1); // TODO: Return failure instead of exiting.
+		}
 	}
-	addArgs(args.size(), argv);
 }
 
 bool ParseArgs::argKeyExists(const std::string& arg)
